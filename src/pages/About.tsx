@@ -22,7 +22,6 @@ useEffect(() => {
     progress = Math.max(0, Math.min(1, progress));
     setScrollProgress(progress);
 
-    // Tentukan kartu mana yang muncul
     const visible: string[] = [];
     CARD_IDS.forEach((id, idx) => {
       if (progress > idx * 0.25) visible.push(id);
@@ -72,7 +71,7 @@ const getCardAnimation = (cardId: string, index: number) => {
       </h2>
           
           {/* Bento Grid */}
-          <div className="grid grid-cols-4 grid-rows-3 gap-6 h-[700px]">
+          <div className="grid grid-cols-4 grid-rows-4 gap-6 h-[700px]">
             {/* Tentang Kami - Large card */}
             <div 
               className="col-span-2 row-span-3 relative rounded-3xl overflow-hidden group cursor-pointer"
