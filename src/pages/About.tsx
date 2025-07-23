@@ -1,227 +1,249 @@
 import { Ship, MapPin, Eye, Target } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+
+// Mock images - replace with your actual imports
+const visi = "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop";
+const misi = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop";
+const tentang = "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=300&fit=crop";
+const latarBelakang = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop";
 
 function About() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
-  const CARD_IDS = ['tentang', 'latar', 'visi', 'misi'];
+  // Transform values for different scroll stages
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 1, 0]);
+  const headingScale = useTransform(scrollYProgress, [0, 0.2, 0.4], [1, 1, 0.8]);
+  const headingY = useTransform(scrollYProgress, [0, 0.2, 0.4], [0, 0, -100]);
 
-const [visibleCards, setVisibleCards] = useState<string[]>([]);
-const [scrollProgress, setScrollProgress] = useState(0);
+  // Bento grid transforms
+  const gridOpacity = useTransform(scrollYProgress, [0.3, 0.5], [0, 1]);
+  const gridScale = useTransform(scrollYProgress, [0.3, 0.5], [0.6, 1]);
+  const gridY = useTransform(scrollYProgress, [0.3, 0.5], [200, 0]);
 
-useEffect(() => {
-  const handleScroll = () => {
-    const container = document.getElementById('cards-container');
-    if (!container) return;
-
-    const rect = container.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const totalScroll = container.offsetHeight - windowHeight;
-
-    // Hitung progress (0 sampai 1)
-    let progress = (windowHeight - rect.top) / totalScroll;
-    progress = Math.max(0, Math.min(1, progress));
-    setScrollProgress(progress);
-
-    const visible: string[] = [];
-    CARD_IDS.forEach((id, idx) => {
-      if (progress > idx * 0.25) visible.push(id);
-    });
-    setVisibleCards(visible);
-  };
-
-  window.addEventListener('scroll', handleScroll);
-  handleScroll();
-  return () => window.removeEventListener('scroll', handleScroll);
-}, []);
-
-const getCardAnimation = (cardId: string, index: number) => {
-  const isVisible = visibleCards.includes(cardId);
-  return {
-    transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(80px) scale(0.8)',
-    opacity: isVisible ? 1 : 0,
-    transition: `all 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.3}s`
-  };
-};
+  // Cards data with 3D positioning
+  const cards = [
+    {
+      title: "Tentang Kami",
+      image: tentang,
+      icon: Ship,
+      description: "Eksporia.id adalah platform ekspor digital yang membantu pelaku usaha Indonesia menjangkau pasar global dengan mudah dan terpercaya. Kami hadir sebagai solusi lengkap—dari edukasi, pengurusan dokumen, hingga pengiriman.",
+      gridClass: "col-span-2 row-span-3",
+      delay: 0,
+      rotateX: 15,
+      rotateY: -10,
+      translateZ: 50
+    },
+    {
+      title: "Latar Belakang",
+      image: latarBelakang,
+      icon: MapPin,
+      description: "Banyak pengusaha kesulitan ekspor karena minimnya akses dan informasi. Eksporia.id hadir untuk membuka jalan dan memberikan akses lebih sederhana serta bisa diakses siapa saja.",
+      gridClass: "col-span-2 row-span-2",
+      delay: 0.1,
+      rotateX: -10,
+      rotateY: 15,
+      translateZ: 30
+    },
+    {
+      title: "Visi",
+      image: visi,
+      icon: Eye,
+      description: "Menjadi jembatan utama produk lokal Indonesia ke pasar dunia.",
+      gridClass: "col-span-1 row-span-1",
+      delay: 0.2,
+      rotateX: 20,
+      rotateY: -20,
+      translateZ: 40
+    },
+    {
+      title: "Misi",
+      image: misi,
+      icon: Target,
+      description: "Memberikan kemudahan ekspor melalui digitalisasi proses dan edukasi komprehensif.",
+      gridClass: "col-span-1 row-span-1",
+      delay: 0.3,
+      rotateX: -15,
+      rotateY: 25,
+      translateZ: 35
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
-      {/* Hero Section */}
-      <div className="h-screen flex items-center justify-center sticky top-0 z-0">
-        <div className="text-center">
-          <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 dark:from-blue-400 dark:via-purple-400 dark:to-blue-600 bg-clip-text text-transparent mb-8 animate-pulse">
-            Eksporia.id
-          </h1>
-          <p className="text-2xl text-gray-600 dark:text-gray-300 opacity-80">
-            Scroll to discover our story
-          </p>
-          <div className="mt-8 animate-bounce">
-            <div className="w-6 h-10 border-2 border-blue-500 dark:border-blue-400 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-blue-500 dark:bg-blue-400 rounded-full mt-2 animate-pulse"></div>
-            </div>
+    <div ref={containerRef} className="min-h-[500vh] relative">
+      {/* Sticky container */}
+      <div className="sticky top-0 h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-cyan-50 to-blue-100 dark:from-slate-900 dark:via-cyan-900 dark:to-blue-900">
+        
+        {/* Heading Section */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center z-20"
+          style={{
+            opacity: headingOpacity,
+            scale: headingScale,
+            y: headingY
+          }}
+        >
+          <div className="text-center">
+            <motion.h1
+              className="text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-blue-800 via-blue-600 to-cyan-700 bg-clip-text text-transparent leading-tight"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
+              Eksporia.id adalah
+            </motion.h1>
           </div>
-        </div>
-      </div>
+        </motion.div>
 
-      {/* Cards Container */}
-<div id="cards-container" className="relative h-[400vh] bg-gray-100 dark:bg-gray-900">
-  <div className="sticky top-0 h-screen flex flex-col items-center justify-center">
-    <div className="max-w-5xl mx-auto px-6 w-full">
-      <h2 className="text-5xl font-bold text-center text-gray-800 dark:text-gray-200 mb-16 opacity-90">
-        Adalah
-      </h2>
-          
-          {/* Bento Grid */}
-          <div className="grid grid-cols-4 grid-rows-4 gap-6 h-[700px]">
-            {/* Tentang Kami - Large card */}
-            <div 
-              className="col-span-2 row-span-3 relative rounded-3xl overflow-hidden group cursor-pointer"
+        {/* Background particles/dots for depth */}
+        <div className="absolute inset-0 opacity-20">
+          {[...Array(50)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-cyan-400 rounded-full"
               style={{
-                ...getCardAnimation('tentang', 0),
-                ...(visibleCards.includes('tentang') ? getCardAnimation('tentang',0) : {})
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0.2, 0.8, 0.2],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Bento Grid Section */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center z-10"
+          style={{
+            opacity: gridOpacity,
+            scale: gridScale,
+            y: gridY,
+          }}
+        >
+          <div className="max-w-7xl mx-auto px-6 w-full perspective-1000">
+            <div 
+              className="grid grid-cols-4 grid-rows-3 gap-6"
+              style={{ 
+                transformStyle: 'preserve-3d',
+                perspective: '1000px'
               }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 dark:from-blue-500 dark:via-blue-600 dark:to-blue-700 group-hover:from-blue-500 group-hover:via-blue-600 group-hover:to-blue-700 transition-all duration-700"></div>
-              
-              {/* Animated background particles */}
-              <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="absolute w-2 h-2 bg-white rounded-full animate-pulse"
+              {cards.map((card, index) => {
+                const cardOpacity = useTransform(
+                  scrollYProgress, 
+                  [0.4 + card.delay, 0.6 + card.delay], 
+                  [0, 1]
+                );
+                const cardY = useTransform(
+                  scrollYProgress, 
+                  [0.4 + card.delay, 0.7 + card.delay], 
+                  [100 + (index * 20), 0]
+                );
+                const cardRotateX = useTransform(
+                  scrollYProgress, 
+                  [0.4 + card.delay, 0.7 + card.delay], 
+                  [card.rotateX, 0]
+                );
+                const cardRotateY = useTransform(
+                  scrollYProgress, 
+                  [0.4 + card.delay, 0.7 + card.delay], 
+                  [card.rotateY, 0]
+                );
+                const cardZ = useTransform(
+                  scrollYProgress, 
+                  [0.4 + card.delay, 0.7 + card.delay], 
+                  [card.translateZ, 0]
+                );
+
+                return (
+                  <motion.div
+                    key={card.title}
+                    className={`${card.gridClass} relative rounded-3xl overflow-hidden group cursor-pointer shadow-2xl`}
                     style={{
-                      left: `${20 + i * 15}%`,
-                      top: `${10 + i * 10}%`,
-                      animationDelay: `${i * 0.5}s`
+                      opacity: cardOpacity,
+                      y: cardY,
+                      rotateX: cardRotateX,
+                      rotateY: cardRotateY,
+                      z: cardZ,
+                      transformStyle: 'preserve-3d',
+                      backfaceVisibility: 'hidden',
                     }}
-                  ></div>
-                ))}
-              </div>
-              
-              {/* Icon with enhanced hover */}
-              <div className="absolute top-8 left-8 z-10 group-hover:scale-125 group-hover:-translate-y-2 transition-all duration-500">
-                <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:bg-white/40 group-hover:shadow-xl transition-all duration-500">
-                  <Ship className="w-8 h-8 text-white group-hover:rotate-12 transition-transform duration-500" />
-                </div>
-              </div>
-              
-              {/* Content with enhanced hover effects */}
-              <div className="relative z-10 p-8 h-full flex flex-col justify-end group-hover:translate-y-[-8px] transition-transform duration-500">
-                <h2 className="text-4xl font-bold text-white mb-6 group-hover:text-blue-100 group-hover:scale-105 transition-all duration-500">
-                  Tentang Kami
-                </h2>
-                <p className="text-white/90 text-lg leading-relaxed group-hover:text-white transition-all duration-500">
-                  Eksporia.id adalah platform ekspor digital yang membantu pelaku usaha Indonesia menjangkau pasar global dengan mudah dan terpercaya. Kami hadir sebagai solusi lengkap—dari edukasi, pengurusan dokumen, hingga pengiriman.
-                </p>
-              </div>
-              
-              {/* Enhanced mask with hover effect */}
-              <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-blue-600/95 via-blue-600/60 to-transparent dark:from-blue-700/95 dark:via-blue-700/60 group-hover:from-blue-700/98 group-hover:via-blue-700/70 transition-all duration-500"></div>
-              
-              {/* Hover shadow effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-2xl rounded-3xl"></div>
+                    whileHover={{ 
+                      scale: 1.05,
+                      rotateX: 0,
+                      rotateY: 0,
+                      z: 20,
+                      transition: { duration: 0.3 }
+                    }}
+                  >
+                    {/* Background Image */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                      style={{
+                        backgroundImage: `url(${card.image})`,
+                      }}
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black/60 via-black/30 to-transparent" />
+                    
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-cyan-600/20 via-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    {/* Content */}
+                    <div className="relative z-10 p-6 h-full flex flex-col justify-end">
+                      <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.8 + card.delay, duration: 0.6 }}
+                      >
+                        <card.icon className="w-10 h-10 text-white mb-4 drop-shadow-lg transform transition-transform duration-300 group-hover:scale-110" />
+                        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 drop-shadow-lg">
+                          {card.title}
+                        </h3>
+                        <motion.p 
+                          className="text-white/90 text-sm lg:text-base leading-relaxed opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
+                        >
+                          {card.description}  
+                        </motion.p>
+                      </motion.div>
+                    </div>
+
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-pulse" />
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-            
-            {/* Latar Belakang */}
-            <div 
-              className="col-span-2 row-span-2 relative rounded-3xl overflow-hidden group cursor-pointer"
+          </div>
+        </motion.div>
+
+        {/* Progress indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+          <div className="w-32 h-1 bg-white/20 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full"
               style={{
-                ...getCardAnimation('latar', 1),
-                ...(visibleCards.includes('latar') ? getCardAnimation('latar',1) : {})
+                scaleX: scrollYProgress,
+                transformOrigin: "left"
               }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-orange-500 to-red-500 dark:from-orange-500 dark:via-red-500 dark:to-red-600 group-hover:from-orange-500 group-hover:via-red-500 group-hover:to-red-600 transition-all duration-700"></div>
-              
-              {/* Animated background */}
-              <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                <div className="absolute top-8 right-8 w-32 h-32 border-2 border-white/30 rounded-lg rotate-12 group-hover:rotate-45 transition-transform duration-1000"></div>
-                <div className="absolute top-16 right-16 w-16 h-16 border border-white/40 rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-700"></div>
-              </div>
-              
-              <div className="absolute top-8 left-8 z-10 group-hover:scale-125 group-hover:-translate-y-2 transition-all duration-500">
-                <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:bg-white/40 group-hover:shadow-xl transition-all duration-500">
-                  <MapPin className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-500" />
-                </div>
-              </div>
-              
-              <div className="relative z-10 p-8 h-full flex flex-col justify-end group-hover:translate-y-[-6px] transition-transform duration-500">
-                <h2 className="text-3xl font-bold text-white mb-4 group-hover:text-orange-100 group-hover:scale-105 transition-all duration-500">
-                  Latar Belakang
-                </h2>
-                <p className="text-white/90 text-base leading-relaxed group-hover:text-white transition-all duration-500">
-                  Banyak pengusaha kesulitan ekspor karena minimnya akses dan informasi. Eksporia.id hadir untuk membuka jalan dan memberikan akses lebih sederhana serta bisa diakses siapa saja.
-                </p>
-              </div>
-              
-              <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-red-500/95 via-red-500/60 to-transparent dark:from-red-600/95 dark:via-red-600/60 group-hover:from-red-600/98 group-hover:via-red-600/70 transition-all duration-500"></div>
-            </div>
-            
-            {/* Visi */}
-            <div 
-              className="col-span-1 row-span-1 relative rounded-3xl overflow-hidden group cursor-pointer"
-              style={{
-                ...getCardAnimation('visi', 2),
-                ...(visibleCards.includes('visi') ? getCardAnimation('visi',2) : {})
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500 dark:from-blue-400 dark:via-blue-500 dark:to-blue-600 group-hover:from-blue-400 group-hover:via-blue-500 group-hover:to-blue-600 transition-all duration-700"></div>
-              
-              <div className="absolute inset-0 opacity-10 group-hover:opacity-30 transition-opacity duration-500">
-                <div className="absolute top-6 right-6 w-20 h-20 border border-white/30 rounded-full group-hover:scale-110 transition-transform duration-500"></div>
-              </div>
-              
-              <div className="absolute top-6 left-6 z-10 group-hover:scale-125 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-500">
-                <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center group-hover:bg-white/40 group-hover:shadow-lg transition-all duration-500">
-                  <Eye className="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-500" />
-                </div>
-              </div>
-              
-              <div className="relative z-10 p-6 h-full flex flex-col justify-end group-hover:translate-y-[-4px] transition-transform duration-500">
-                <h2 className="text-xl font-bold text-white mb-2 group-hover:text-blue-100 group-hover:scale-105 transition-all duration-500">
-                  Visi
-                </h2>
-                <p className="text-white/90 text-sm leading-relaxed group-hover:text-white transition-all duration-500">
-                  Menjadi jembatan utama produk lokal Indonesia ke pasar dunia.
-                </p>
-              </div>
-              
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-blue-500/95 via-blue-500/60 to-transparent dark:from-blue-600/95 dark:via-blue-600/60 group-hover:from-blue-600/98 group-hover:via-blue-600/70 transition-all duration-500"></div>
-            </div>
-            
-            {/* Misi */}
-            <div 
-              className="col-span-1 row-span-1 relative rounded-3xl overflow-hidden group cursor-pointer"
-              style={{
-                ...getCardAnimation('misi', 3),
-                ...(visibleCards.includes('misi') ? getCardAnimation('misi',3) : {})
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-green-400 via-green-500 to-teal-500 dark:from-green-500 dark:via-teal-500 dark:to-teal-600 group-hover:from-green-500 group-hover:via-teal-500 group-hover:to-teal-600 transition-all duration-700"></div>
-              
-              <div className="absolute inset-0 opacity-10 group-hover:opacity-30 transition-opacity duration-500">
-                <div className="absolute top-6 right-6 w-20 h-20 border border-white/30 rounded-lg rotate-45 group-hover:rotate-90 group-hover:scale-110 transition-all duration-700"></div>
-              </div>
-              
-              <div className="absolute top-6 left-6 z-10 group-hover:scale-125 group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-500">
-                <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center group-hover:bg-white/40 group-hover:shadow-lg transition-all duration-500">
-                  <Target className="w-6 h-6 text-white group-hover:rotate-180 transition-transform duration-700" />
-                </div>
-              </div>
-              
-              <div className="relative z-10 p-6 h-full flex flex-col justify-end group-hover:translate-y-[-4px] transition-transform duration-500">
-                <h2 className="text-xl font-bold text-white mb-2 group-hover:text-green-100 group-hover:scale-105 transition-all duration-500">
-                  Misi
-                </h2>
-                <p className="text-white/90 text-sm leading-relaxed group-hover:text-white transition-all duration-500">
-                  Memberikan kemudahan ekspor melalui digitalisasi proses dan edukasi komprehensif.
-                </p>
-              </div>
-              
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-teal-500/95 via-teal-500/60 to-transparent dark:from-teal-600/95 dark:via-teal-600/60 group-hover:from-teal-600/98 group-hover:via-teal-600/70 transition-all duration-500"></div>
-            </div>
+            />
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

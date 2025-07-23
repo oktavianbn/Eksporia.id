@@ -8,6 +8,6 @@ export default defineConfig({
     tailwindcss(),
   ],server: {
     host: true, // wajib biar bisa diakses publik
-    allowedHosts: ['cyan-papers-clean.loca.lt'], // ganti sesuai tunnel kamu
+    allowedHosts: ['breezy-bats-leave.loca.lt'], // ganti sesuai tunnel kamu
   }
 })

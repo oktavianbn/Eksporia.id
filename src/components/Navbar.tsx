@@ -36,7 +36,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center space-x-2 group cursor-pointer">
             <Ship className="w-6 h-6 text-white" />
             <span
-              className={`font-bold text-xl transition-colors duration-200 ${
+              className={`font-semibold text-2xl transition-colors duration-200 ${
                 isScrolled ? "text-gray-900 dark:text-white" : "text-white"
               }`}
             >
