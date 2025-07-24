@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Map from "./pages/map";
 import { ParallaxProvider } from "react-scroll-parallax";
+import Potensi from "./pages/Potensi";
+import Informasi from "./pages/Informasi";
 
 function App() {
   return (
@@ -13,10 +15,9 @@ function App() {
       <ParallaxProvider>
         <Home />
       </ParallaxProvider>
-      <div className="relative z-0 ">
-      <About />
-      </div>
+      <Potensi/>
       <Map/>
+      <Informasi/>
     </>
   );
 }

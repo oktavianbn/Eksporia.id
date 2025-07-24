@@ -1,69 +1,67 @@
-# React + TypeScript + Vite
+# 🚀 Menjalankan Proyek React JS yang Sudah Ada
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Petunjuk ini akan membantu Anda menjalankan proyek React JS yang sudah ada (misalnya hasil ekstrak file ZIP) dan menampilkan tampilan (view) React di browser.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧰 Prasyarat
 
-## Expanding the ESLint configuration
+Sebelum memulai, pastikan Anda sudah menginstal:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* [Node.js (versi LTS)](https://nodejs.org/) – disarankan versi 18 atau lebih tinggi
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Cek dengan perintah:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+node -v
+npm -v
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📂 1. Ekstrak dan Masuk ke Folder Proyek
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Misalnya file ZIP Anda bernama `react-project.zip`, lakukan langkah berikut:
+
+```bash
+unzip react-project.zip
+cd nama-folder-proyek
 ```
+
+Gantilah `nama-folder-proyek` sesuai dengan nama folder hasil ekstrak Anda.
+
+---
+
+## 📦 2. Instalasi Dependensi
+
+Jalankan perintah berikut di dalam folder proyek:
+
+```bash
+npm install
+```
+
+Ini akan mengunduh semua package/library yang dibutuhkan berdasarkan `package.json`.
+
+---
+
+## ▶️ 3. Menjalankan Aplikasi
+
+Jalankan salah satu dari perintah berikut, tergantung pada tool yang digunakan oleh proyek:
+
+### Jika menggunakan Vite:
+
+```bash
+npm run dev
+```
+
+Akses di browser: [http://localhost:5173](http://localhost:5173)
+
+### Jika menggunakan Create React App:
+
+```bash
+npm start
+```
+
+Akses di browser: [http://localhost:3000](http://localhost:3000)
+
+---

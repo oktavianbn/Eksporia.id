@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
 import Parallax from "../components/Parallax";
 import Hero from "./Hero";
+import Awan from "../components/Awan";
+import About from "./About";
 
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,8 +38,17 @@ const Home = () => {
         navItems={navItems}
       />
 
-        {/* Hero Section */}
-        <Hero/>
+      {/* Hero Section */}
+      <section id="hero" className="relative z-40">
+        <Hero />
+        <Awan />
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="relative z-20">
+        <About />
+      </section>
+      
     </div>
   );
 };
