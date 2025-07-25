@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Moon, Sun } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import InformasiCard from "../components/InformasiCard";
-import informasiList from "../data/DataInformasi";
 import InformasiModal from "../components/InformasiModal";
+import informasiList from "../data/DataInformasi";
 
 
-import PotensiPage from "./Potensi";
 
 export default function InformasiPage() {
   const [activeCard, setActiveCard] = useState(1);

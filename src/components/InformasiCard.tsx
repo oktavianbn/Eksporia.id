@@ -24,7 +24,6 @@ const InformasiCard: React.FC<CardProps> = ({
     onClick,
     index,
     getCardWidth,
-    getActive,
     getExpandedCardWidth,
 }) => {
     return (

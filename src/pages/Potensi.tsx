@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import PotensiCard from "../components/PotensiCard";
 import PotensiModal from "../components/PotensiModal";
-import potensiList from "../data/DataPotensi";
+import potensiList, { type PotensiData } from "../data/DataPotensi";
 
 function Potensi() {
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null as PotensiData | null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollX, setScrollX] = useState(0);
@@ -15,7 +15,7 @@ function Potensi() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const handleCardClick = (data: any) => {
+  const handleCardClick = (data: PotensiData | null) => {
     setSelectedProduct(data);
     setIsModalOpen(true);
   };
@@ -90,8 +90,7 @@ function Potensi() {
   const maxScrollLeft = Math.max(0, totalContentWidth - containerWidth);
   
   // Better scroll progress calculation
-  const scrollProgress = maxScrollLeft > 0 ? Math.min(1, scrollX / maxScrollLeft) : 0;
-  
+
   // Calculate active index based on scroll position - more accurate
   const getActiveIndex = () => {
     if (containerWidth === 0) return 0;

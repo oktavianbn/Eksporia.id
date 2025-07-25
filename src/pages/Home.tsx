@@ -1,10 +1,8 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import { useState, useEffect } from "react";
-import Parallax from "../components/Parallax";
-import Hero from "./Hero";
+import { useEffect, useState } from "react";
 import Awan from "../components/Awan";
+import Navbar from "../components/Navbar";
 import About from "./About";
+import Hero from "./Hero";
 
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);

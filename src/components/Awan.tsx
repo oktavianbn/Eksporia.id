@@ -1,4 +1,3 @@
-import React from 'react'
 import Awan2 from "../assets/awan2.svg";
 
 const Awan = () => {

@@ -4,8 +4,8 @@ export const useSmoothScroll = () => {
   const scrolling = useRef(false);
   const currentScrollRef = useRef(0);
   const targetScrollRef = useRef(0);
-  const frameRef = useRef<number>();
-  const previousTimeRef = useRef<number>();
+  const frameRef = useRef<number|null>(null);
+  const previousTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
     const smoothStep = (current: number, target: number, time: number) => {
@@ -17,7 +17,7 @@ export const useSmoothScroll = () => {
     };
 
     const render = (time: number) => {
-      if (previousTimeRef.current !== undefined) {
+      if (previousTimeRef.current !== null && previousTimeRef.current !== undefined) {
         const deltaTime = (time - previousTimeRef.current) / 1000;
         currentScrollRef.current = smoothStep(
           currentScrollRef.current,
@@ -40,7 +40,7 @@ export const useSmoothScroll = () => {
       if (!scrolling.current) {
         scrolling.current = true;
         currentScrollRef.current = window.pageYOffset;
-        previousTimeRef.current = undefined;
+        previousTimeRef.current = null;
         frameRef.current = requestAnimationFrame(render);
       }
     };

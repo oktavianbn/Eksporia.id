@@ -10,22 +10,6 @@ interface NavbarProps {
   navItems: string[];
 }
 // Paling atas file
-function scrollToSection(item: string) {
-  const map: { [key: string]: string } = {
-    "Beranda": "home",
-    "Potensi": "potensi",
-    "Informasi": "informasi",
-    "Peta": "map",
-    // Tambahkan item lain jika ada
-  };
-  const sectionId = map[item];
-  if (sectionId) {
-    const el = document.getElementById(sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-}
 const Navbar: React.FC<NavbarProps> = ({
   isScrolled,
   // isDark,

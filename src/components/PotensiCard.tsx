@@ -3,7 +3,7 @@ import type { PotensiData } from "../data/DataPotensi";
 
 interface PotensiCardProps {
     data:PotensiData;
-    onClick: (data: PotensiData) => void;
+    onClick: (data: PotensiData|null) => void;
 }
 
 const PotensiCard : React.FC<PotensiCardProps> = ({ data, onClick }) => {

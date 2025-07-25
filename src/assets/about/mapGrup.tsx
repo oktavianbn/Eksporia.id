@@ -9,7 +9,6 @@
     id="Jawa"
     name="Jawa"
     className="group hover:fill-yellow-300 transition duration-300 ease-in-out cursor-pointer"
-    onClick={(e) => handleGroupClick(e, "Sumatera")}
   >
     <path
       id="id-bt"

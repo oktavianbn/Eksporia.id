@@ -1,11 +1,11 @@
-import { Ship, MapPin, Eye, Target } from "lucide-react";
-import { useRef, useLayoutEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import tentang from "../assets/about/tentang.png";
+import { Eye, MapPin, Ship, Target } from "lucide-react";
+import { useLayoutEffect, useRef } from "react";
 import latar from "../assets/about/latarBelakang.png";
-import visi from "../assets/about/visi.png";
 import misi from "../assets/about/misi.png";
+import tentang from "../assets/about/tentang.png";
+import visi from "../assets/about/visi.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,7 +77,7 @@ function About() {
       }, "+=1");
 
       // Staggered cards animation with 3D effect
-      cardsRef.current.forEach((card, index) => {
+      cardsRef.current.forEach((card) => {
         tl.from(card, {
           opacity: 0,
           y: 200,
@@ -155,7 +155,7 @@ function About() {
               {cards.map((card, index) => (
                 <div
                   key={card.title}
-                  ref={el => cardsRef.current[index] = el}
+                  ref={el => { cardsRef.current[index] = el; }}
                   className={`${card.gridClass} group relative rounded-2xl md:rounded-3xl overflow-hidden min-h-[140px] sm:min-h-[180px] md:min-h-[200px]`}
                   style={{
                     transform: `translateZ(${card.translateZ}px)`,

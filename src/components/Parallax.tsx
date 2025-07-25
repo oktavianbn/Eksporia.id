@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { ParallaxProvider, useParallax } from "react-scroll-parallax";
-import Kapal from "../assets/kapal.png";
 import Awan from "../assets/awan.png";
+import Kapal from "../assets/kapal.png";
 
 interface ParallaxProps {
   background: string;
@@ -44,12 +44,12 @@ const ParallaxContent: React.FC<ParallaxProps> = ({ background, children }) => {
     >
       {/* Background */}
       <div
-        ref={backgroundParallax.ref}
+        ref={backgroundParallax.ref as React.RefObject<HTMLDivElement>}
         className="absolute inset-0 will-change-transform -top-96"
       >
         {/* Content */}
         <div
-          ref={contentParallax.ref}
+          ref={contentParallax.ref as React.RefObject<HTMLDivElement>}
           className="relative z-10 h-full will-change-transform"
         >
           {children}
@@ -57,7 +57,7 @@ const ParallaxContent: React.FC<ParallaxProps> = ({ background, children }) => {
 
         {/* Ship */}
         <img
-          ref={shipParallax.ref}
+          ref={shipParallax.ref as React.RefObject<HTMLImageElement>}
           src={Kapal}
           alt="Kapal"
           className="absolute pointer-events-none will-change-transform drop-shadow-zinc-600 drop-shadow-xl"
@@ -74,7 +74,7 @@ const ParallaxContent: React.FC<ParallaxProps> = ({ background, children }) => {
 
         {/* Cloud transition */}
         <div
-          ref={cloudParallax.ref}
+          ref={cloudParallax.ref as React.RefObject<HTMLDivElement>}
           className="absolute -bottom-32 left-0 right-0 w-full overflow-hidden will-change-transform"
           style={{ zIndex: 20 }}
         >

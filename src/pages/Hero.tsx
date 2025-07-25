@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import Parallax from "../components/Parallax";
-import Laut from "../assets/laut.jpg";
 import { Globe } from "lucide-react";
-import Awan2 from "../assets/awan2.svg";
+import { useEffect, useState } from "react";
+import Laut from "../assets/laut.jpg";
+import Parallax from "../components/Parallax";
 
 const Hero = () => {
   const [currentText, setCurrentText] = useState("");
