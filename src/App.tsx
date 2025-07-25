@@ -4,10 +4,11 @@ import viteLogo from "/vite.svg";
 import "./index.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Map from "./pages/map";
+import Map from "./pages/Мap";
 import { ParallaxProvider } from "react-scroll-parallax";
 import Potensi from "./pages/Potensi";
 import Informasi from "./pages/Informasi";
+import Footer from "./pages/Footer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Potensi/>
       <Map/>
       <Informasi/>
+      <Footer/>
     </>
   );
 }

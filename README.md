@@ -1,4 +1,4 @@
-# 🚀 Menjalankan Proyek React JS yang Sudah Ada
+# ⚛️ Menjalankan Website React
 
 Petunjuk ini akan membantu Anda menjalankan proyek React JS yang sudah ada (misalnya hasil ekstrak file ZIP) dan menampilkan tampilan (view) React di browser.
 
@@ -24,8 +24,8 @@ npm -v
 Misalnya file ZIP Anda bernama `react-project.zip`, lakukan langkah berikut:
 
 ```bash
-unzip react-project.zip
-cd nama-folder-proyek
+unzip Eksporia.id.zip
+cd Eksporia.id
 ```
 
 Gantilah `nama-folder-proyek` sesuai dengan nama folder hasil ekstrak Anda.

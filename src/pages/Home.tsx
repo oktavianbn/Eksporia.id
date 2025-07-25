@@ -9,7 +9,7 @@ import About from "./About";
 const Home = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  // const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,14 +25,14 @@ const Home = () => {
 
   return (
     <div
-      className={`min-h-screen transition-colors duration-300 font-popp ${
-        isDark ? "dark" : ""
-      } scroll-smooth`}
-    >
+      className={`min-h-screen transition-colors duration-300 font-popp 
+        scroll-smooth`}
+      // ${isDark ? "dark" : "" }
+        >
       <Navbar
         isScrolled={isScrolled}
-        isDark={isDark}
-        setIsDark={setIsDark}
+        // isDark={isDark}
+        // setIsDark={setIsDark}
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
         navItems={navItems}

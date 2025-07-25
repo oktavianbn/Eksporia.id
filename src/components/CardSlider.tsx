@@ -51,14 +51,14 @@ const CardSlider : React.FC<CardSliderProps> = () => {
                         <InformasiCard
                             key={card.id}
                             card={card}
+
                             isActive={card.id === activeCard}
-                            darkMode={darkMode}
+                            // darkMode={darkMode}
                             isMobile={isMobile}
                             onClick={handleCardClick}
                             index={visibleStart + index}
                             getCardWidth={getCardWidth}
-                            getExpandedCardWidth={getExpandedCardWidth}
-                        />
+                            getExpandedCardWidth={getExpandedCardWidth} getActive={false}                        />
                     ))}
                 </div>
 

@@ -2,6 +2,42 @@
 import { Factory, Sprout, Scissors, Fish, Wheat, Mountain, Trees, Droplet } from "lucide-react";
 import type { JSX } from "react";
 
+// Sumatara
+import kopiSumatra from "../assets/image/sumatra/kopi.jpg";
+import sawitSumatra from "../assets/image/sumatra/sawit.jpg";
+import rempahSumatra from "../assets/image/sumatra/rempah.jpg";
+
+// Jawa
+import batikJawa from "../assets/image/jawa/batik.jpeg";
+import tehJawa from "../assets/image/jawa/teh.webp"; 
+import berasJawa from "../assets/image/jawa/beras.jpg";
+
+// Kalimantan
+import ladaKaltim from "../assets/image/kalimantan/lada.webp";
+import rotanKaltim from "../assets/image/kalimantan/rotan.webp";
+import kayuKaltim from "../assets/image/kalimantan/kayu.jpg";
+
+// Sulawesi
+import cokelatSulawesi from "../assets/image/sulawesi/coklat.jpg";
+import kopiToraja from "../assets/image/sulawesi/kopi-toraja.jpg";
+import ikanSulawesi from "../assets/image/sulawesi/ikan.jpg";
+
+// Papua
+import kopiPapua from "../assets/image/papua/kopi.webp";
+import saguPapua from "../assets/image/papua/sagu.jpg";
+import ikanPapua from "../assets/image/papua/ikan2.jpg";
+
+// Bali & Nusa Tenggara
+import garamBali from "../assets/image/nusaTenggara/garam.jpg";
+import tembakauntt from "../assets/image/nusaTenggara/tembakau.jpg";
+import tenunBali from "../assets/image/nusaTenggara/tenun.jpg";
+
+// Maluku
+import palaMaluku from "../assets/image/maluku/pala.jpg";
+import cengkehMaluku from "../assets/image/maluku/cengkeh.jpg";
+import ikanMaluku from "../assets/image/maluku/ikan1.jpg";
+
+
 export interface DaerahData {
   nama: string;
   komoditas: string[];
@@ -25,71 +61,37 @@ const daerahList: DaerahData[] = [
       { icon: <Fish className="w-4 h-4" />, text: "Perikanan" },
       { icon: <Factory className="w-4 h-4" />, text: "Industri" },
     ],
-    gambar: [
-      "/src/assets/image/sumatra/kopi.jpg",
-      "/src/assets/image/sumatra/sawit.jpg",
-      "/src/assets/image/sumatra/rempah.jpg",
-    ],
+    gambar: [kopiSumatra, sawitSumatra, rempahSumatra],
   },
   {
     nama: "Jawa",
-    komoditas: [
-      "Batik",
-      "Teh",
-      "Beras",
-      "Kerajinan kayu",
-      "Tebu",
-    ],
+    komoditas: ["Batik", "Teh", "Beras", "Kerajinan kayu", "Tebu"],
     kategori: [
       { icon: <Factory className="w-4 h-4" />, text: "Industri" },
       { icon: <Wheat className="w-4 h-4" />, text: "Pangan" },
       { icon: <Scissors className="w-4 h-4" />, text: "Kerajinan" },
     ],
-    gambar: [
-      "/src/assets/image/jawa/batik.jpeg",
-      "/src/assets/image/jawa/teh.wpeg",
-      "/src/assets/image/jawa/beras.jpg",
-    ],
+    gambar: [batikJawa, tehJawa, berasJawa],
   },
   {
     nama: "Kalimantan",
-    komoditas: [
-      "Rotan",
-      "Hasil hutan",
-      "Kelapa sawit",
-      "Lada",
-      "Kayu ulin",
-    ],
+    komoditas: ["Rotan", "Hasil hutan", "Kelapa sawit", "Lada", "Kayu ulin"],
     kategori: [
       { icon: <Trees className="w-4 h-4" />, text: "Hasil Hutan" },
       { icon: <Factory className="w-4 h-4" />, text: "Industri" },
       { icon: <Sprout className="w-4 h-4" />, text: "Pertanian" },
     ],
-    gambar: [
-      "/src/assets/image/kalimantan/rotan.wpeg",
-      "/src/assets/image/kalimantan/lada.wpeg",
-      "/src/assets/image/kalimantan/kayu.jpg",
-    ],
+    gambar: [rotanKaltim, ladaKaltim, kayuKaltim],
   },
   {
     nama: "Sulawesi",
-    komoditas: [
-      "Cokelat",
-      "Kopi Toraja",
-      "Kelapa",
-      "Ikan tuna",
-      "Cengkeh",
-    ],
+    komoditas: ["Cokelat", "Kopi Toraja", "Kelapa", "Ikan tuna", "Cengkeh"],
     kategori: [
       { icon: <Sprout className="w-4 h-4" />, text: "Pertanian" },
       { icon: <Fish className="w-4 h-4" />, text: "Perikanan" },
       { icon: <Factory className="w-4 h-4" />, text: "Industri" },
     ],
-    gambar: [
-      "/src/assets/image/sulawesi/cokelat.jpg",
-      "/src/assets/image/sulawesi/kopi-toraja.jpg",
-      "/src/assets/image/sulawesi/ikan.jpg",
-    ],
+    gambar: [cokelatSulawesi, kopiToraja, ikanSulawesi],
   },
   {
     nama: "Papua",
@@ -105,11 +107,7 @@ const daerahList: DaerahData[] = [
       { icon: <Fish className="w-4 h-4" />, text: "Perikanan" },
       { icon: <Sprout className="w-4 h-4" />, text: "Pertanian" },
     ],
-    gambar: [
-      "/src/assets/image/papua/kopi.jpg",
-      "/src/assets/image/papua/sagu.jpg",
-      "/src/assets/image/papua/ikan.jpg",
-    ],
+    gambar: [kopiPapua, saguPapua, ikanPapua],
   },
   {
     nama: "Bali & Nusa Tenggara",
@@ -125,31 +123,17 @@ const daerahList: DaerahData[] = [
       { icon: <Sprout className="w-4 h-4" />, text: "Pertanian" },
       { icon: <Droplet className="w-4 h-4" />, text: "Kelautan" },
     ],
-    gambar: [
-      "/src/assets/image/bali-nt/kopi.jpg",
-      "/src/assets/image/bali-nt/garam.jpg",
-      "/src/assets/image/bali-nt/tenun.jpg",
-    ],
+    gambar: [tembakauntt, garamBali, tenunBali],
   },
   {
     nama: "Maluku",
-    komoditas: [
-      "Pala",
-      "Cengkeh",
-      "Ikan tuna",
-      "Kopra",
-      "Rumput laut",
-    ],
+    komoditas: ["Pala", "Cengkeh", "Ikan tuna", "Kopra", "Rumput laut"],
     kategori: [
       { icon: <Fish className="w-4 h-4" />, text: "Perikanan" },
       { icon: <Sprout className="w-4 h-4" />, text: "Rempah" },
       { icon: <Factory className="w-4 h-4" />, text: "Industri" },
     ],
-    gambar: [
-      "/src/assets/image/maluku/pala.jpg",
-      "/src/assets/image/maluku/cengkeh.jpg",
-      "/src/assets/image/maluku/ikan.jpg",
-    ],
+    gambar: [palaMaluku, cengkehMaluku, ikanMaluku],
   },
 ];
 
