@@ -19,7 +19,7 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = ["Tentang", "Potensi", "Informasi", "Kontak"];
+  const navItems = ["Tentang", "Potensi", "Informasi"];
 
   return (
     <div
