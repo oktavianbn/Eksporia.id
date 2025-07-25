@@ -27,7 +27,7 @@ const PotensiModal: React.FC<PotensiModalProps> = ({ data, isOpen, onClose }) =>
     if (!isOpen || !data) return null;
 
     return (
-        <div className="fixed inset-0 z-[3000] bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 py-8 overflow-y-auto">
+        <div className="fixed inset-0 z-[5000] bg-black/80 backdrop-blur-sm flex items-center justify-center px-4 py-8 overflow-y-auto">
             <div className="relative bg-white dark:bg-gray-800 rounded-2xl w-full max-w-lg shadow-lg overflow-hidden">
                 {/* Tombol close */}
                 <button
