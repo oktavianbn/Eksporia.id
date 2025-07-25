@@ -1,7 +1,7 @@
 import React from "react";
 import { ParallaxProvider, useParallax } from "react-scroll-parallax";
 import Awan from "../assets/awan.png";
-import Kapal from "../assets/kapal.png";
+import Kapal from "../../src/assets/Kapal.png";
 
 interface ParallaxProps {
   background: string;
